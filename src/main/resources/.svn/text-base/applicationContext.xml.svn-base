@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		"
+	default-lazy-init="true">
+
+	<description>Spring公共配置 </description>
+    <!-- 设置使用注解的类所在的jar包 -->  
+    <context:component-scan base-package="com.rljc" use-default-filters="true" >
+      <!-- 排除不需要加载的注解 -->
+      <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+     </context:component-scan> 
+
+	<!-- Jpa Entity Manager 配置 -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
+		<property name="dataSource" ref="dataSourcePkdbMySql" />
+		<!-- 设置hibernate方言 可以使用java类动态生成 -->
+		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
+		<property name="packagesToScan" value="com.rljc.module" />
+		<property name="jpaProperties">
+			<props>
+				<!-- 命名规则 My_NAME->MyName -->
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+				<!-- 配置hibernate的属性 如果使用log4jdbc这个就不起作用 -->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				
+				<prop key="hibernate.max_fetch_depth">1</prop>
+				<prop key="hibernate.default_batch_fetch_size">4</prop>
+				<prop key="hibernate.jdbc.fetch_size">30</prop>
+				<prop key="hibernate.jdbc.batch_size">40</prop>
+				<!-- hibernate.hbm2ddl.auto：
+					create：表示启动的时候先drop，再create
+					create-drop: 也表示创建，只不过再系统关闭前执行一下drop
+					update: 这个操作启动的时候会去检查schema是否一致，如果不一致会做scheme更新
+					validate: 启动时验证现有schema与你配置的hibernate是否一致，如果不一致就抛出异常，并不做更新
+				 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	    <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+	</bean>
+	
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="poolName" value="springHikariCP" />
+        <property name="maximumPoolSize" value="7" />
+        <property name="idleTimeout" value="9000" />
+        <property name="connectionTimeout" value="360000" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="driverClassName" value="${jdbc.driver}" />
+    </bean>
+    <!-- HikariCP configuration -->
+    <bean id="dataSourcePkdbMySql" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig" />
+    </bean>
+	
+	<!-- JSR303 Validator定义 -->
+ 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+ 	
+ 	<!-- Spring Data Jpa配置 -->
+ 	<jpa:repositories base-package="com.rljc.dao" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
+ 	<!-- Jpa 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+	
+	<!-- 通过注解读取.properties配置  -->
+	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath*:rljc.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties" />
+    </bean>
+	
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> 
+
+	<tx:advice id="defaultTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<!-- 定义在service包或者子包里的任意类的任意方法的执行 -->
+		<aop:advisor pointcut="execution(* com.rljc.service..*.*(..))"
+			advice-ref="defaultTxAdvice" />
+		<!-- 需要事务的，都放在service里面 -->
+	</aop:config>
+	
+	<import resource="shiro.xml"/>
+	
+	<!-- 托管至spring管理的sitemesh filter -->
+	<bean id="sitemeshFilterBean" class="com.opensymphony.sitemesh.webapp.SiteMeshFilter"/>
+	
+	<!-- 图片对比线程池 -->
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+         <!-- <property name="corePoolSize" value="5" />  
+         <property name="maxPoolSize" value="10" />  
+         <property name="WaitForTasksToCompleteOnShutdown" value="true" /> -->
+
+		<!-- 核心线程数 -->
+		<property name="corePoolSize" value="20" />
+		<!-- 最大线程数 -->
+		<property name="maxPoolSize" value="20" />
+		<!-- 队列最大长度 >=mainExecutor.maxSize -->
+		<property name="queueCapacity" value="1000" />
+		<!-- 线程池维护线程所允许的空闲时间 -->
+		<property name="keepAliveSeconds" value="300" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />
+		<!-- 线程池对拒绝任务(无线程可用)的处理策略 ThreadPoolExecutor.CallerRunsPolicy策略 ,调用者的线程会执行该任务,如果执行器已关闭,则丢弃. -->
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+		</property>
+	</bean>
+</beans>

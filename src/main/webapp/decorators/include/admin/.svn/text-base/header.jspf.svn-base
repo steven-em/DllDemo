@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<!-- <div class="head-c-login fr"></div> -->
+<div class="head-center-box" style="margin: 0 10px; width: 1200px;">
+	<div class="fl">
+		<a href="${ctxPath }/index"><img alt="logo" src="${ctxPath}/images/logo.png" height="50" style="margin-top: 6px;"></a>
+		<!-- <h1>WKD后台管理</h1> -->
+	</div>
+	<div class="head-c-login fr" style="padding-top: 13px;">
+		<div class="use-name fl">
+			<span class="fl">当前账号：${sessionScope['nickName'] }</span>
+			<!-- <span class="name fl" style="padding:0 12px 0 6px"></span> -->
+			 <!-- onclick="editUser();" -->
+			<i class="edit-icon" onclick="editUser(${sessionScope.userId});" style="margin: 5px;">&nbsp;</i>
+		</div>
+		<div class="exit-btn fl">
+			<a href="${ctxPath }/logout">退出登录</a>
+		</div>
+	</div>
+</div>
+<script>
+	function editUser(){
+		layer.open({
+		    title: '管理员信息编辑',
+		    type: 1,
+		    skin: 'layui-layer-rim', //加上边框
+		    area: ['420px', '300px'], //宽高
+		    shadeClose: true, //开启遮罩关闭
+		    content: '<div class="search-name-box" id="editDiv"></div>',
+		    btn: ['确定','取消'],
+		    success: function(){
+		    	$("#editDiv").loading().load(__ctxPath+"/user/edit/${sessionScope.userId}", {"userEdit": "true"});
+		    },
+		    yes: function(){
+		    	$("#editDiv :input").trigger("blur");
+				if(!$(".validError").is(":visible")){
+					if(!$("#passwordDiv").is(":hidden")){
+						var password = $("#editDiv :input[id=passwordS]").val();
+						password=hex_md5(password);
+						$("#editDiv :input[id=password]").val(password);
+					}
+			    	var param = $("#editDiv :input").serializeArray();
+					$.ajax({
+						type:"POST",
+						url: __ctxPath+"/user/save",
+						data: param,
+						dataType:"json",
+						success: function(result){
+							layer.closeAll();
+							if(result.success){
+								layer.msg("修改成功", {icon: 1});
+							} else {
+								layer.msg("发生错误，操作失败！", {icon: 3});
+							}
+						},
+						error: function(xhr, status, error){
+							//layer.closeAll();
+							layer.msg("通讯发生错误，请重新尝试或刷新", {icon: 6});
+						}
+					}); 
+				}
+		    },
+		    cancel: function(index){
+		    	layer.close(index);
+		    }
+		});
+	}
+</script>

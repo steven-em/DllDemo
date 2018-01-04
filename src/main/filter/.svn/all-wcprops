@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/filter
+END
+test2.properties
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jtcp/!svn/ver/56/source/rljc/src/main/filter/test2.properties
+END
+local.properties
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jtcp/!svn/ver/50/source/rljc/src/main/filter/local.properties
+END
+dev.properties
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jtcp/!svn/ver/50/source/rljc/src/main/filter/dev.properties
+END

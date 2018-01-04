@@ -1,0 +1,52 @@
+## This is a velocity template
+## to generate a model class from an sql table input
+#set ($table = $sqlTable.Table)
+#set ($class = $utility.makeClassName($sqlTable.EntityName))
+#set ($classVar = $utility.makeFirstLetterLowerCase($class))
+#set ($packagePrefix  = $prop.getProperty("packagePrefix"))
+#set ($packageModot  = $prop.getProperty("packageModot"))
+#set ($keyfield = $sqlTable.getPrimaryKey(0).getColname())
+#set ($keytype  = $sqlTable.getPrimaryKey(0).getAttType())
+#set ($keyVar= $utility.makeVarName($keyfield))
+#set ($keyVarUC = $utility.makeFirstLetterUpperCase($keyVar))
+package ${packagePrefix}.service;
+
+import ${packagePrefix}.module.${class};
+import ${packagePrefix}.dao.${class}Dao;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import org.springframework.data.jpa.domain.Specification;
+
+@Component
+@Transactional
+public class ${class}Service extends BaseService<${class}> {
+
+	@Autowired
+	private ${class}Dao ${classVar}Dao;
+
+	@Override
+	protected void initDao() {
+		this.baseDao = ${classVar}Dao;
+	}
+	
+	@Override
+	public Specification<${class}> buildSpecification(final ${class} ${classVar}){
+		return new Specification<${class}>(){
+			public Predicate toPredicate(Root<${class}> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				List<Predicate> predicate = new ArrayList<Predicate>();
+				
+                Predicate[] pre = new Predicate[predicate.size()];
+                return query.where(predicate.toArray(pre)).getRestriction();
+			}
+		};
+	}
+}

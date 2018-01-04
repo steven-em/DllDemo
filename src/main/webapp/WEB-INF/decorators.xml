@@ -1,0 +1,45 @@
+<decorators defaultdir="/decorators">
+	<excludes>
+		<pattern>/**/js/*</pattern>
+		<pattern>/**/css/*</pattern>
+		<pattern>/**/assets/*</pattern>
+		<pattern>/4*.jsp</pattern>
+		<pattern>/5*.jsp</pattern>
+		<pattern>/down.jsp</pattern>
+		<pattern>/login*</pattern>
+		<pattern>/admin/login*</pattern>
+	</excludes>
+
+	<!-- dec 为前缀的jsp文件为装饰器专用文件。-->
+	<!-- 装饰器的匹配一般是两种方式： URL和参数 -->
+	<!-- URL 主要看每个装饰器定义的pattern -->
+	<!-- 参数  可以在url后面通过GET方式带参数： decorator=[指定的装饰器name，如printable] -->
+	
+	<!-- 用法：空白页面，不带任何系统元素与JS，一般是打开一个系统dialog或者jquery.load一段HTML代码用到 -->
+    <decorator name="blank" page="decBlank.jsp">
+		<pattern>/**/dialog.html</pattern>
+		<pattern>/**/blank.html</pattern>
+    	<pattern>/selector/*</pattern>
+    	<pattern>/**/include/*</pattern>
+    </decorator>
+	<!-- 用法：不带header,footer和菜单的页面，只包括操作按钮工具条，但不包含系统JS和调用到uiResource的JS，一般是ajax调出一个form页面用到 -->
+	<decorator name="ajaxPage" page="decAjaxPage.jsp">
+		<pattern>/**/ajaxPage.html</pattern>
+    </decorator>
+    
+	<decorator name="adminDefault" page="decAdminDefault.jsp">
+        <pattern>/admin/*</pattern>
+    </decorator>
+    <decorator name="wapDefault" page="decWap.jsp">
+        <pattern>/wap/*</pattern>
+    </decorator>
+    
+    <decorator name="member" page="decMember.jsp">
+        <pattern>/web/member*</pattern>
+    </decorator>
+	<!-- 用法：默认页装饰器 -->
+	<decorator name="default" page="decDefault.jsp">
+        <pattern>/web/*</pattern>
+    </decorator>
+    
+</decorators>

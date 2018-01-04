@@ -1,0 +1,36 @@
+## This is a velocity template
+## to generate a Spring controller class from an sql table input
+#set ($table = $sqlTable.Table)
+#set ($class = $utility.makeClassName($sqlTable.EntityName))
+#set ($classVar = $utility.makeFirstLetterLowerCase($class))
+#set ($packagePrefix  = $prop.getProperty("packagePrefix"))
+#set ($packageSaPrefix  = $prop.getProperty("packageSaPrefix"))
+#set ($packageModot  = $prop.getProperty("packageModot").substring(1))
+#set ($keyColumn = $sqlTable.getPrimaryKey(0))
+#set ($keyfield = $sqlTable.getPrimaryKey(0).getColname())
+#set ($keytype  = $sqlTable.getPrimaryKey(0).getAttType())
+#set ($keyVar= $utility.makeVarName($keyfield))
+#set ($keyVarUC = $utility.makeFirstLetterUpperCase($keyVar))
+#set ($classManager    = "${class}Manager")
+#set ($classVarManager = "${classVar}Manager")
+package ${packageSaPrefix}.controller.${packageModot};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import ${packagePrefix}.service.${class}Service;
+import ${packagePrefix}.module.${class};
+
+@Controller
+@RequestMapping(value="/${packageModot}/${classVar}")
+public class ${class}Controller extends BaseController<${class}> {
+
+	@Autowired
+	private ${class}Service ${classVar}Service;
+	
+	@Override
+	protected void initService() {
+		this.baseService = ${classVar}Service;
+	}
+}

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/webapp/decorators
+END
+decMember.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/webapp/decorators/decMember.jsp
+END
+decDefault.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtcp/!svn/ver/46/source/rljc/src/main/webapp/decorators/decDefault.jsp
+END
+decBlank.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/webapp/decorators/decBlank.jsp
+END
+decAdminDefault.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jtcp/!svn/ver/28/source/rljc/src/main/webapp/decorators/decAdminDefault.jsp
+END
+decWap.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/webapp/decorators/decWap.jsp
+END

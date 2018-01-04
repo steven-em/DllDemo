@@ -1,0 +1,28 @@
+<sitemesh>
+    <property name="decorators-file" value="/WEB-INF/decorators.xml"/>
+    <excludes file="${decorators-file}"/> 
+    <page-parsers>
+        <parser default="true" content-type="text/html" class="com.opensymphony.module.sitemesh.parser.HTMLPageParser"/>
+    </page-parsers>
+    <decorator-mappers>
+    	<!-- important! these mapper is sequential。 become effective immediately upon change these properties -->
+		<!-- parameter mapper, use 'decorator=?' in url to select decorator -->
+        <mapper class="com.opensymphony.module.sitemesh.mapper.ParameterDecoratorMapper">
+			<param name="decorator" value="decoratorName" />
+        </mapper>
+		<!-- printable mapper, use 'printable=true' to apply the printable decorator exclued header,footer and menu etc .-->
+        <mapper class="com.opensymphony.module.sitemesh.mapper.PrintableDecoratorMapper">
+			<param name="decorator" value="printable" />
+			<param name="parameter.name" value="printable" />
+			<param name="parameter.value" value="true" />
+        </mapper>
+        <!-- The actual Page determines the Decorator to be used. use '<META name="decorator" content="blank"/>' to apply the decorator by page-->
+        <mapper class="com.opensymphony.module.sitemesh.mapper.PageDecoratorMapper"> 
+			<param name="property.1" value="meta.decorator" />
+		</mapper>
+		<!-- Default implementation of DecoratorMapper. Reads decorators and mappings from the config property ('/WEB-INF/classes/conf/decorators.xml'). -->
+        <mapper class="com.opensymphony.module.sitemesh.mapper.ConfigDecoratorMapper">
+            <param name="config" value="${decorators-file}"/> 
+        </mapper>
+    </decorator-mappers>
+</sitemesh>

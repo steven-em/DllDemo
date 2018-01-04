@@ -1,0 +1,94 @@
+package com.rljc.controller.Dll.api;
+
+import com.rljc.controller.Dll.callback.fF6AlarmPictureCallback;
+import com.rljc.controller.Dll.callback.fZLDisConnect;
+import com.rljc.controller.Dll.callback.fZLRealDataCallBackEx;
+import com.rljc.controller.Dll.module.LPZLNET_DEVICEINFO;
+import com.rljc.controller.Dll.module.ZLNET_ALARM_SUBSCRIBE;
+import com.rljc.controller.Dll.module.ZLNET_F6_CAPBILITIES;
+import com.sun.jna.Native;
+import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
+import com.sun.jna.win32.StdCallLibrary;
+
+public interface ZLNETSDK extends StdCallLibrary {
+
+	public static String strFilePath = "D:\\bin_win64\\zlnetsdk.dll";
+
+	public static ZLNETSDK INSTANCE = (ZLNETSDK) Native.loadLibrary(strFilePath, ZLNETSDK.class);
+
+	/**
+	 * 初始化SDK，在所有的SDK函数之前调用。 如需使用P2P（穿网）方式登录设备，请使用ZLNET_InitEx 。
+	 * 
+	 * BOOL ZLNET_Init( fZLDisConnect cbDisConnect, ZLDWORD dwUser ); Parameters
+	 * cbDisConnect 断线回调函数，回调出当前网络已经断开的设备。 对调用ZLNET_LogOut()而主动断开的设备不回调。
+	 * 设置为NULL时禁止回调。 [in]dwUser 用户自定义数据
+	 * 
+	 * @param cbDisConnect
+	 * @param dwUser
+	 * @return
+	 */
+	public int ZLNET_Init(fZLDisConnect cbDisConnect, int dwUser);
+
+	/**
+	 * 实现用户的注册功能，注册成功后，返回的登陆ID作为其他功能操作的唯一标识。对设备而言，设备同时最多允许10个用户注册
+	 * 注册新用户到设置IP LONG ZLNET_LoginEx( char* pchDVRIP, WORD wDVRPort, char*
+	 * pchUserName, char* pchPassword, int nSpecCap, void* pCapParam,
+	 * LPZLNET_DEVICEINFO lpDeviceInfo, int* error=0);
+	 *  失败返回0，成功返回设备ID，登录成功之后对设备的操作都可以通过此值(设备句柄)对应到相应的设备。 
+	 * @return
+	 */
+	public NativeLong ZLNET_LoginEx(String pchDVRIP, int wDVRPort, String pchUserName, String pchPassword,
+			int nSpecCap, Pointer pCapParam, LPZLNET_DEVICEINFO.ByReference lpDeviceInfo, int error);
+
+	
+	/**
+	 * 查询设备能力。 成功返回TRUE，失败返回FALSE
+	 * @param lLoginID
+	 * @param pCaps
+	 * @param nTimeOut
+	 * @return
+	 */
+	public int ZLNET_F6_GetGlobalCaps(NativeLong lLoginID,ZLNET_F6_CAPBILITIES.ByReference pCaps,int nTimeOut );
+	
+	/**
+	 * 报警订阅。
+	 * @param lLoginID
+	 * @param param
+	 * @return
+	 */
+	public int ZLNET_F6_ListenAlarm(NativeLong lLoginID,ZLNET_ALARM_SUBSCRIBE param);
+	
+	/**
+	 * 设置智能设备报警图片回调。
+	 * @param lLoginID 设备登陆句柄，ZLNET_Login、ZLNET_LoginEx的返回值
+	 * @param cbDataCallback 智能设备报警图片回调函数 
+	 * @param dwUser 用户自定义数据 
+	 * @return
+	 */
+	public int ZLNET_F6_SetAlarmPictureCallback(NativeLong lLoginID,fF6AlarmPictureCallback cbDataCallback , int dwUser);
+
+	/**
+	 * 启动实时监视或多画面预览。
+	 * @param lLoginID
+	 * @param nChannelID
+	 * @param hWnd
+	 * @param rType
+	 * @return
+	 */
+	public NativeLong ZLNET_RealPlayEx(NativeLong lLoginID,int  nChannelID,
+			NativeLong hWnd,int rType);
+
+
+	/**
+	 * 设置实时监视数据回调扩展接口。对ZLNET_SetRealDataCallBack的补充，增加一个回调数据类型标志dwFlag，
+	 * 可以选择性的回调出需要的数据，对于没设置回调的数据类型就不回调。 
+	 * @param lRealHandle
+	 * @param cbRealData
+	 * @param dwUser
+	 * @param dwFlag
+	 * @return
+	 */
+	public int ZLNET_SetRealDataCallBackEx(NativeLong lRealHandle,
+			fZLRealDataCallBackEx cbRealData,int dwUser,int dwFlag );
+}

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/webapp/WEB-INF
+END
+decorators.xml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtcp/!svn/ver/46/source/rljc/src/main/webapp/WEB-INF/decorators.xml
+END
+sitemesh.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/webapp/WEB-INF/sitemesh.xml
+END
+web.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/jtcp/!svn/ver/28/source/rljc/src/main/webapp/WEB-INF/web.xml
+END

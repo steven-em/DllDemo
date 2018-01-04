@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/service
+END
+AdvertisementService.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jtcp/!svn/ver/68/source/rljc/src/main/java/com/rljc/service/AdvertisementService.java
+END
+RoleService.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/service/RoleService.java
+END
+MemberService.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/service/MemberService.java
+END
+UserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/service/UserService.java
+END
+AdPositionService.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/service/AdPositionService.java
+END
+MenuService.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/service/MenuService.java
+END
+BaseService.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/service/BaseService.java
+END
+SystemConfigService.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/service/SystemConfigService.java
+END
+ApiAccountService.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jtcp/!svn/ver/39/source/rljc/src/main/java/com/rljc/service/ApiAccountService.java
+END
+RegisteredMenService.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jtcp/!svn/ver/74/source/rljc/src/main/java/com/rljc/service/RegisteredMenService.java
+END

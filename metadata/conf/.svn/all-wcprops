@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/jtcp/!svn/ver/26/source/rljc/metadata/conf
+END
+CommonTemplates.properties
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtcp/!svn/ver/26/source/rljc/metadata/conf/CommonTemplates.properties
+END
+SpringTemplates.properties
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtcp/!svn/ver/26/source/rljc/metadata/conf/SpringTemplates.properties
+END
+FileNames.properties
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jtcp/!svn/ver/26/source/rljc/metadata/conf/FileNames.properties
+END
+generator.properties
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jtcp/!svn/ver/26/source/rljc/metadata/conf/generator.properties
+END
+FileLocations.properties
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtcp/!svn/ver/26/source/rljc/metadata/conf/FileLocations.properties
+END
+PackageNames.properties
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jtcp/!svn/ver/26/source/rljc/metadata/conf/PackageNames.properties
+END

@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin
+END
+RegisteredMenController.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jtcp/!svn/ver/32/source/rljc/src/main/java/com/rljc/controller/admin/RegisteredMenController.java
+END
+AdminIndexController.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/AdminIndexController.java
+END
+ApiAccountController.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jtcp/!svn/ver/39/source/rljc/src/main/java/com/rljc/controller/admin/ApiAccountController.java
+END
+BaseController.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/BaseController.java
+END
+SystemConfigController.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/SystemConfigController.java
+END
+MenuController.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/MenuController.java
+END
+AdPositionController.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/AdPositionController.java
+END
+UserController.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/UserController.java
+END
+AdminLoginController.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/AdminLoginController.java
+END
+MemberController.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/MemberController.java
+END
+UploadPicController.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/jtcp/!svn/ver/63/source/rljc/src/main/java/com/rljc/controller/admin/UploadPicController.java
+END
+RoleController.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/RoleController.java
+END
+AdvertisementController.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/controller/admin/AdvertisementController.java
+END

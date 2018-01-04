@@ -1,0 +1,60 @@
+<div id="errorMsgBar" class='warning_msg_fixed' style="display: none"></div>
+<div id="successMsgBar" class="success_msg_fixed" style="display:none"></div>
+<script type="text/javaScript">
+	$(document).ready(function(){		
+		<c:set var="alertMessage" value=""/>
+		<c:if test="${not empty sessionScope.messages}">
+			<c:forEach items="${sessionScope.messages}" var="msg" varStatus="varStatus">
+				<c:choose>
+					<c:when test="${varStatus.first}">
+						<c:set var="alertMessage" value="${msg}"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="alertMessage" value="${alertMessage} ${msg}"/>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			sysMsg("${alertMessage}");
+			<c:remove var="messages" scope="session"/>
+		</c:if>
+		<c:set var="alertMessage" value=""/>
+		<c:if test="${not empty sessionScope.errorMessages}">
+			<c:forEach items="${sessionScope.errorMessages}" var="msg" varStatus="varStatus">
+				<c:choose>
+					<c:when test="${varStatus.first}">
+						<c:set var="alertMessage" value="${msg}"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="alertMessage" value="${alertMessage} ${msg}"/>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			sysMsg("${alertMessage}",true);
+			<c:remove var="errorMessages" scope="session"/>
+		</c:if>
+		if($("#bindErrorMsgBar").length > 0){
+			$("#bindErrorMsgBar").hide();
+			$("#bindErrorMsgBar").fadeIn("slow");
+		}
+	});
+	var msgTimeout = 3000;
+	var errorMsgTimeout = 3500;
+	var sysMsgTimeOutHandler;
+	function sysMsg(sMsg/*String*/,isErrMsg/*Boolean*/) {
+		clearTimeout(sysMsgTimeOutHandler);
+		$('#errorMsgBar,#successMsgBar').hide().css('left','40%');
+		if(!isErrMsg){
+			$('#errorMsgBar').hide();
+			$('#successMsgBar').empty().append("<p class='cont'>"+sMsg+"</p>").show();
+			msgTimeOutHandler = setTimeout(sysMsgFadeOut,msgTimeout);
+		}else{
+			$('#successMsgBar').hide();
+			$('#errorMsgBar').empty().append("<p class='cont'>"+sMsg+"</p>").show();
+			msgTimeOutHandler = setTimeout(sysMsgFadeOut,errorMsgTimeout);
+		}
+		
+	}
+	function sysMsgFadeOut(){
+		$('#errorMsgBar,#successMsgBar').animate({left: 0, opacity: "hide"},1000);
+	}
+</script>

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtcp/!svn/ver/33/source/rljc/src/main/java/com/rljc/controller/BioAuth
+END
+BioAuthControllerApi.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jtcp/!svn/ver/59/source/rljc/src/main/java/com/rljc/controller/BioAuth/BioAuthControllerApi.java
+END
+BioAuthAPI.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/jtcp/!svn/ver/82/source/rljc/src/main/java/com/rljc/controller/BioAuth/BioAuthAPI.java
+END
+SignatureUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/jtcp/!svn/ver/79/source/rljc/src/main/java/com/rljc/controller/BioAuth/SignatureUtil.java
+END
+ApiBaseController.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/jtcp/!svn/ver/39/source/rljc/src/main/java/com/rljc/controller/BioAuth/ApiBaseController.java
+END

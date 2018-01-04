@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:if test="${nowPath != '/wap/storeDetail.jsp' }">
+	<link rel="stylesheet" href="${ctxPath }/css/home.css">
+</c:if>
+<link rel="stylesheet" href="${ctxPath }/css/wapIndex.css">
+<div class="main wap-top">
+    <div class="title">
+            <div class="right">
+              <img src="${ctxPath }/img/menu.png">
+                <div class="wap-nav hidden">
+                    <div class="wap-nav-box">
+                        <a href="${ctxPath }/index"><p>首页</p></a>
+                        <a href="${ctxPath }/store/index"><p>门店</p></a>
+                        <a href="${ctxPath }/activity/index"><p>活动</p></a>
+                        <a href="${ctxPath }/service/index"><p>服务</p></a>
+                        <a href="${ctxPath }/dynamic/index"><p>动态</p></a>
+                        <a href="${ctxPath }/about.jsp"><p>关于</p></a>
+                        <a href="${ctxPath }/job.jsp"><p>招聘</p></a>
+                        <c:choose>
+                        	<c:when test="${not empty memberId && memberId != 'null'}">
+                        		<a href="${ctxPath }/member/index"><p style="border-bottom: 0px solid;">我</p></a>  
+                        	</c:when>
+                        	<c:otherwise>
+								<a href="${ctxPath }/login.jsp"><p style="border-bottom: 0px solid;">登录</p></a>                        		
+                        	</c:otherwise>
+                        </c:choose>	
+                    </div>
+                </div>
+            </div>
+            <div class="left">
+             	<a href="javascript:history.back();" ><span class="glyphicon glyphicon-menu-left" style="margin-top: 10px;${nowPath eq '/wap/storeDetail.jsp'  ? 'margin-left: 10px':''}"></span></a> 
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="yuyue">
+   <a href="${ctxPath }/bookingVisit/add"> 
+		<div class="yuyue-img">
+			<img src="${ctxPath }/img/wap_yuy_02.png">
+		</div> 
+    </a>
+</div> 
+ <script>
+	//显示nav
+	 $(".wap-top .title .right").click(function(){
+	     var cssName=$(this).find(".wap-nav").attr("class");
+	     if(cssName=="wap-nav"){
+	         $(this).find(".wap-nav").attr("class","wap-nav hidden");
+	         $(this).removeAttr("style");
+	     }else{
+	         $(this).attr("style","background:#4a4a4a;");
+	         $(this).find(".wap-nav").attr("class","wap-nav");
+	     }
+	 });
+</script> 

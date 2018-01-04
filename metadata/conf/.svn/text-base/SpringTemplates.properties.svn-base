@@ -1,0 +1,5 @@
+templateLocation=./templates/spring/
+SpringControllerTemplate_NoOverwrite=Controller.java.vm
+SpringJspTemplate_NoOverwrite=Form.jsp.vm
+SpringJspListTemplate_NoOverwrite=List.jsp.vm
+SpringJspItemTemplate_NoOverwrite=Item.jsp.vm

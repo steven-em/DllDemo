@@ -1,0 +1,102 @@
+<%@ include file="/common/taglibs.jsp"%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+	String currPath = request.getServletPath();
+	request.setAttribute("currPath", currPath);
+ %>
+<style>
+.left-nav h3{ cursor: pointer; }
+.current{ background-color: #e8efec; }
+</style>
+<script type="text/javascript">
+  	$(document).ready(function(){
+		$(document).on("click",".left-nav .nav-list-hide i",function(){
+			$(this).parents(".left-nav").find(".nav-list1").hide();
+			$(this).addClass("sub_bg1").removeClass("sub_bg");
+			$(this).parent().addClass("nav-list-show").removeClass("nav-list-hide");
+		});
+	    $(document).on("click",".left-nav .nav-list-show i",function(){
+			$(this).parents(".left-nav").find(".nav-list1").show();
+			$(this).addClass("sub_bg").removeClass("sub_bg1");
+			$(this).parent().addClass("nav-list-hide").removeClass("nav-list-show");
+		});
+		$(document).on("click",".left-nav .nav-list-hide h3",function(){
+			$(this).parents(".left-nav").find(".nav-list1").hide();
+			$(this).prev().addClass("sub_bg1").removeClass("sub_bg");
+			$(this).parent().addClass("nav-list-show").removeClass("nav-list-hide");
+		});
+	    $(document).on("click",".left-nav .nav-list-show h3",function(){
+			$(this).parents(".left-nav").find(".nav-list1").show();
+			$(this).prev().addClass("sub_bg").removeClass("sub_bg1");
+			$(this).parent().addClass("nav-list-hide").removeClass("nav-list-show");
+		});
+		$(document).on("click",".left-nav h3",function(){
+			$(this).parents(".nav-title").addClass("current");
+			var path = "${pageContext.request.contextPath }";
+			var url = $(this).attr("url");
+			if(url != null && url.trim().length > 0){
+				$("#navForm").attr("action", path + $(this).attr("url"));
+				$("#menuNav").val($(this).parent().attr("menuNav"));
+				$("#navForm").submit();
+			}
+		});
+		$(document).on("click",".left-nav a",function(){
+			$(this).parents(".nav-title").addClass("current");
+			var path = "${pageContext.request.contextPath }";
+			var url = $(this).attr("url");
+			if(url != null && url.trim().length > 0){
+				$("#navForm").attr("action", path + $(this).attr("url"));
+				$("#menuNav").val($(this).parent().attr("menuNav"));
+				$("#navForm").submit();
+			}
+		});
+	});
+</script>
+<form action="" id="navForm" method="post">
+	<input type="hidden" name="menuNav" id="menuNav"/>
+</form>
+<div style="padding-top: 20px;">
+	<c:forEach items="${menuTree }" var="menu">
+		<c:set value=",${menu.id }," var="tmpId"/>
+		<c:if test="${fn:contains(sessionScope.menus, tmpId) || sessionScope.roleId eq 1}">
+		<div class="left-nav">
+			<div class="nav-title ${sessionScope.menuNav == menu.id ?'nav-list-hide current':'nav-list-show' }" menuNav="${menu.id }">
+				<c:choose>
+					<c:when test="${not empty menu.children}">
+						<i class="${sessionScope.menuNav == menu.id ?'sub_bg':'sub_bg1' } fl"></i>
+					</c:when>
+					<c:otherwise>
+						<i class="fl"></i>
+					</c:otherwise>
+				</c:choose>
+				<h3 style="font-weight: bold;" class="fl" url="${menu.url }" menuNav="${menu.id }">${menu.title }</h3>
+			</div>
+			<c:if test="${not empty menu.children }">
+				<ul class="nav-list1" style="${sessionScope.menuNav == menu.id ?'':'display:none;' }">
+					<c:forEach items="${menu.children }" var="sub">
+						<c:set value=",${sub.id }," var="subId"/>
+						<c:if test="${fn:contains(sessionScope.menus, subId) || sessionScope.roleId eq 1 }">
+						<li class="${sessionScope.menuNav==sub.id?'current':'' }" menuNav="${sub.id }">
+							<a href="javascript:void(0);" url="${sub.url }">${sub.title }</a>
+						</li>
+						</c:if>
+					</c:forEach>
+				</ul>
+			</c:if>
+		</div>
+		</c:if>
+	</c:forEach>
+</div>
+<script>
+  	$(document).ready(function(){
+		jQuery.each($(".left-nav li"),function(k,v){
+			var menuNav = "${sessionScope.menuNav}";
+			if($(v).attr('menuNav') == menuNav){
+				$(v).attr('class','current');//.removeAttr('href')
+				$(v).parent().css("display","block");
+				$(v).parent().parent().find("div").attr("class","nav-title nav-list-hide");
+				$(v).parent().parent().find("div").children("i").attr("class","sub_bg fl");
+			}
+		});
+	});
+  </script>

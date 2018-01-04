@@ -1,0 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!--wap-->
+<div class="clear"></div>
+<div class="wap-bottom">
+    <p>电话：400-808-6605</p>
+    <p>总部地址：上海市静安区南京西路688号恒基688广场1206室</p>
+</div>

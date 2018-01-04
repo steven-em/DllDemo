@@ -1,0 +1,61 @@
+## This is a velocity template
+## to generate a List jsp file from an sql table input
+#set ($table = $sqlTable.Table)
+#set ($class = $utility.makeClassName($sqlTable.EntityName))
+#set ($classVar = $utility.makeFirstLetterLowerCase($class))
+#set ($packagePrefix  = $prop.getProperty("packagePrefix"))
+#set ($packageModot  = $prop.getProperty("packageModot").substring(1))
+#set ($keyfield = $sqlTable.getPrimaryKey(0).getColname())
+#set ($keyfieldLC = $keyfield.toLowerCase())
+#set ($keytype  = $sqlTable.getPrimaryKey(0).getAttType())
+#set ($keyVar= $utility.makeVarName($keyfield))
+#set ($keyVarUC = $utility.makeFirstLetterUpperCase($keyVar))
+#set ($keyColumn = $sqlTable.getPrimaryKey(0))
+#set ($appname=$prop.getProperty("appname"))
+#set ($packageModot  = $prop.getProperty("packageModot").substring(1))
+#set ($dl = "${")
+#set ($dot=".")
+#set ($packageModotDisplayName=$displayUtil.getPackageDisplayName($packageModot))
+
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/${packageModot}/common/taglibs.jsp"%>
+<div style="overflow: auto;">
+	<table class="items">
+		<thead>
+			<tr>
+				<th width="40px;"><input type="checkbox" id="checkAll" onclick="javascript:$('input[name=multiIds]').prop('checked',this.checked);"/></th>
+#foreach( $column in $sqlTable.sqlColumns)
+#set ($colname = ${column.attName})
+#if(!$column.isKey())
+				<th>${colname}</th>
+#end
+#end
+				<th width="100px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:if test="${dl}empty page.content }">
+				<tr><td colspan="3">暂无记录</td></tr>
+			</c:if>
+			<c:forEach items="${dl}page.content }" var="${classVar}" varStatus="vs">
+				<tr class="${dl}vs.count%2==0?'even':'old'}">
+					<td><input type="checkbox" name="multiIds" value="${dl}${classVar}.id }" title=""/></td>
+#foreach( $column in $sqlTable.sqlColumns)
+#if(!$column.isKey())
+					<td>${dl}${classVar}.$column.attName }</td>
+#end		
+#end
+					<td class="button-column">
+						<a href="${dl}pageContext.request.contextPath }/${packageModot}/${classVar}/edit/${dl}${classVar}.id }">
+							<i class="edit-icon" title="编辑">编辑</i>
+						</a>
+					    <i class="delete-icon" title="删除" onclick="fnDoDelete('${classVar}', ${dl}${classVar}.id })">删除</i>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+</div>
+<c:if test="${dl}not empty page.content }">
+<%@ include file="/${packageModot}/common/pagingToScript.jsp"%>
+</c:if>

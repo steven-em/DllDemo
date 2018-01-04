@@ -1,0 +1,30 @@
+<project default="generate" basedir=".">
+	<property name="src.dir" value="src" />
+	<property name="dest.dir" value="bin" />
+	<property name="generated.source.dir" value="${basedir}/../src/" />
+	<target name="generate">
+		<condition property="specifiedTables" value="@specifiedTables">
+			<not>
+				<isset property="specifiedTables" />
+			</not>
+		</condition>
+		<java classname="com.codegenerator.runner.AppFuseGenerator" fork="true">
+			<classpath>
+				<pathelement location="${basedir}/" />
+				<pathelement location="${basedir}/conf/" />
+				<pathelement location="${basedir}/lib/appfusegen.jar" />
+				<fileset dir="${basedir}/lib">
+					<include name="*velocity*.jar" />
+					<include name="ojdbc14.jar" />
+					<include name="*mysql*.jar" />
+					<include name="*commons*.jar" />
+				</fileset>
+			</classpath>
+			<jvmarg value="-Dfile.encoding=UTF-8"/>
+			<arg value="${specifiedTables}" />
+			<arg value="sys=appfuse" />
+			<arg value="forcedOverwrite=${forcedOverwrite}" />
+			<arg value="removeCode=false" />
+		</java>
+	</target>
+</project>

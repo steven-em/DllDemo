@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/resources
+END
+spring-mvc.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jtcp/!svn/ver/60/source/rljc/src/main/resources/spring-mvc.xml
+END
+logback.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jtcp/!svn/ver/60/source/rljc/src/main/resources/logback.xml
+END
+applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtcp/!svn/ver/67/source/rljc/src/main/resources/applicationContext.xml
+END
+shiro.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/jtcp/!svn/ver/60/source/rljc/src/main/resources/shiro.xml
+END
+rljc.properties
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jtcp/!svn/ver/57/source/rljc/src/main/resources/rljc.properties
+END

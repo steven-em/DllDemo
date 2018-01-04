@@ -1,0 +1,62 @@
+## This is a velocity template
+## to generate a List jsp file from an sql table input
+#set ($table = $sqlTable.Table)
+#set ($class = $utility.makeClassName($sqlTable.EntityName))
+#set ($classVar = $utility.makeFirstLetterLowerCase($class))
+#set ($packagePrefix  = $prop.getProperty("packagePrefix"))
+#set ($packageModot  = $prop.getProperty("packageModot").substring(1))
+#set ($keyfield = $sqlTable.getPrimaryKey(0).getColname())
+#set ($keyfieldLC = $keyfield.toLowerCase())
+#set ($keytype  = $sqlTable.getPrimaryKey(0).getAttType())
+#set ($keyVar= $utility.makeVarName($keyfield))
+#set ($keyVarUC = $utility.makeFirstLetterUpperCase($keyVar))
+#set ($keyColumn = $sqlTable.getPrimaryKey(0))
+#set ($appname=$prop.getProperty("appname"))
+#set ($packageModot  = $prop.getProperty("packageModot").substring(1))
+#set ($dl = "${")
+#set ($tag = "$")
+#set ($dot=".")
+#set ($packageModotDisplayName=$displayUtil.getPackageDisplayName($packageModot))
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/${packageModot}/common/taglibs.jsp"%>
+<div class="right-nav">
+	<div class="right-nav-list fl">
+		<span class="parent-name1 fl"><fmt:message key="nav.$packageModot"/>&gt; </span>
+		<span class="child-name fl"><fmt:message key="${classVar}List.heading"/></span>
+	</div>
+</div>
+<div class="panel-content" style="margin-left: 5px;">
+	<div class="search-name-box">
+		<form action="${dl}pageContext.request.contextPath }/${packageModot}/${classVar}/search.do" method="post" id="searchForm">
+			<input type="hidden" name="pageNum" id="pageNum" value="${dl}pageNum }">
+			<div class="contain-box">
+				<label class="c-lable">查找：</label> 
+				<input type="search" name="keyword" id="keyword" class=" c-input" value="${dl}keyword }"/>
+				<div class="click-btn" style="vertical-align: -2px; margin-left: 100px;">
+					<i class="search-icon" onclick="search();">搜索</i>
+				</div>
+				<div class="click-btn" style="vertical-align: -2px;">
+					<i class="delete-icon" onclick="fnDoMultiDelete('${classVar}', 'searchListDiv');">删除</i>
+				</div>
+				<div class="click-btn" style="vertical-align: -2px;">
+					<a href="${dl}pageContext.request.contextPath }/${packageModot}/${classVar}/add"><i class="add-icon">添加</i></a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="contain-box">
+		<div class="table-div" id="searchListDiv"></div>
+	</div>	
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		search();
+	});
+	
+	function search(){
+		var param = $("#searchForm").serializeArray();
+		$("#searchListDiv").loading().load(__ctxPath+"/${classVar}/search", param);
+	}
+</script>
+

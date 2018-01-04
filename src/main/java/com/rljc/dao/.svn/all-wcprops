@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao
+END
+ApiAccountDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jtcp/!svn/ver/39/source/rljc/src/main/java/com/rljc/dao/ApiAccountDao.java
+END
+RegisteredMenDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jtcp/!svn/ver/65/source/rljc/src/main/java/com/rljc/dao/RegisteredMenDao.java
+END
+AdvertisementDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao/AdvertisementDao.java
+END
+RoleDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao/RoleDao.java
+END
+MemberDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao/MemberDao.java
+END
+UserDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao/UserDao.java
+END
+AdPositionDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao/AdPositionDao.java
+END
+MenuDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao/MenuDao.java
+END
+BaseDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao/BaseDao.java
+END
+SystemConfigDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jtcp/!svn/ver/26/source/rljc/src/main/java/com/rljc/dao/SystemConfigDao.java
+END

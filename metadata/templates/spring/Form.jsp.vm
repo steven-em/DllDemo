@@ -1,0 +1,91 @@
+## This is a velocity template
+## to generate a form jsp file from an sql table input
+#set ($table = $sqlTable.Table)
+#set ($class = $utility.makeClassName($sqlTable.EntityName))
+#set ($classVar = $utility.makeFirstLetterLowerCase($class))
+#set ($packagePrefix  = $prop.getProperty("packagePrefix"))
+#set ($packageModot  = $prop.getProperty("packageModot").substring(1))
+#set ($keyfield = $sqlTable.getPrimaryKey(0).getColname())
+#set ($keyfieldLC = $keyfield.toLowerCase())
+#set ($keytype  = $sqlTable.getPrimaryKey(0).getAttType())
+#set ($keyVar= $utility.makeVarName($keyfield))
+#set ($keyVarUC = $utility.makeFirstLetterUpperCase($keyVar))
+#set ($keyColumn = $sqlTable.getPrimaryKey(0))
+#set ($appname=$prop.getProperty("appname"))
+#set ($packageModot  = $prop.getProperty("packageModot").substring(1))
+#set ($dl = "${")
+#set ($tag = "$")
+#set ($dot=".")
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/${packageModot}/common/taglibs.jsp"%>
+<div class="right-nav">
+	<div class="right-nav-list fl">
+		<span class="parent-name1 fl"><fmt:message key="nav.$packageModot"/>&gt; </span>
+		<span class="child-name fl"><fmt:message key="${classVar}Detail.heading"/></span>
+	</div>
+</div>
+<div class="panel">
+	<div class="panel-title">
+		<h3>基本信息</h3>
+		<span class="up-down-btn up-icon" title="收起"></span>
+	</div>
+	<div class="panel-content">
+		<form action="${dl}pageContext.request.contextPath }/${packageModot}/${classVar}/save" method="post" id="submitForm">
+#if ($sqlTable.hasGeneratedKey)
+			<input type="hidden" id="${keyVar}" name="${keyVar}" value="${dl}${classVar}.${keyVar}}"/> 
+#end
+			<input type="hidden" id="version" name="version" value="${dl}${classVar}.version }" />
+#foreach( $column in $sqlTable.sqlColumns)
+#set ($colname = ${column.attName})
+#if(!$column.isKey())
+			<div class="contain-box">
+#if($column.notNullable == true)
+				<label class="c-lable"><span class="red">*</span>${colname}：</label>
+				<input type="text" id="${colname}" name="${colname}" class="c-input" value="${dl}${classVar}.${colname} }" onblur="requiredValid(this);" />
+#else 
+				<label class="c-lable">${colname}：</label>	
+				<input type="text" id="${colname}" name="${colname}" class="c-input" value="${dl}${classVar}.${colname} }" />
+#end 
+			</div>
+#end		
+#end
+		</form>
+		<div class="panel-footer">
+			<span class="save-btn bor-radius" id="saveBtn">保存</span>
+		</div>
+	</div>	
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$(document).on("click","#saveBtn",function(){
+			$("#submitForm :input").trigger("blur");
+			if(!$(".validError").is(":visible")){
+				var param = $("#submitForm").serializeArray();
+				var index = layer.load();
+				${tag}.ajax({
+					type:"POST",
+					url: __ctxPath+"/${classVar}/save",
+					data: param,
+					dataType:"json",
+					success: function(result){
+						if(result.success){
+							$("#id").val(result.${classVar}.id);
+							$("#version").val(result.${classVar}.version);
+							layer.msg("保存成功", {icon: 6, time:2000}, function(){
+								window.location = __ctxPath+"/${classVar}/index";
+							});
+						} else {
+							layer.msg("发生错误，操作失败！", {icon: 3});
+						}
+						layer.close(index);
+					},
+					error: function(xhr, status, error){
+						layer.close(index);
+						layer.msg("通讯发生错误，请重新尝试或刷新", {icon: 3});
+					}
+				});
+			}
+		});
+	});
+</script>

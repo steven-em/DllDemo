@@ -1,0 +1,57 @@
+package com.rljc.listener;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.springframework.web.context.ContextLoaderListener;
+
+import com.rljc.common.ContextUtil;
+
+public class StartupListener extends ContextLoaderListener implements ServletContextListener{
+	
+	@Override
+	public void contextDestroyed(ServletContextEvent event) {
+		ContextUtil.getInstance().cleanup();
+		super.contextDestroyed(event);
+	}
+
+	@Override
+	public void contextInitialized(ServletContextEvent event) {
+		ServletContext servletContext = event.getServletContext();
+		try {
+			super.contextInitialized(event);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw new RuntimeException("Spring context failed to startup.", e);
+		}
+		ContextUtil.getInstance().init(servletContext);
+		
+	/*	ZLNETSDK.INSTANCE.ZLNET_Init(impl, 0);
+		LPZLNET_DEVICEINFO.ByReference lpDeviceInfo = new LPZLNET_DEVICEINFO.ByReference();
+		Integer error = 0 ;
+		NativeLong lLoginID = ZLNETSDK.INSTANCE.ZLNET_LoginEx("192.168.10.86", 8000, "admin", "123456", 0, null, lpDeviceInfo, error);
+		if(lLoginID != null && lLoginID.longValue() > 0){
+			ZLNET_ALARM_SUBSCRIBE param = new ZLNET_ALARM_SUBSCRIBE();
+			param.nPicType = 1;
+			ZLNETSDK.INSTANCE.ZLNET_F6_ListenAlarm(lLoginID, param);
+			fF6AlarmPictureCallback callback = WebApplicationContextUtils.getWebApplicationContext(servletContext).getBean("fF6AlarmPictureCallbackImpl", fF6AlarmPictureCallback.class);
+			ZLNETSDK.INSTANCE.ZLNET_F6_SetAlarmPictureCallback(lLoginID, callback, 0);
+		}*/
+	}
+	
+	
+	/*public static class fZLDisConnectImpl implements fZLDisConnect{
+
+		@Override
+		public void callback(NativeLong lLoginID, String pchDVRIP, Long nDVRPort, int dwUser) {
+			// TODO Auto-generated method stub
+			System.out.println("lLoginID="+lLoginID);
+			System.out.println("pchDVRIP="+pchDVRIP);
+		}
+		
+	}
+	
+	public static fZLDisConnect impl = new fZLDisConnectImpl();*/
+	
+}

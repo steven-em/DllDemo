@@ -1,0 +1,4 @@
+jdbc.username=${jdbc.username} 
+jdbc.password=${jdbc.password}
+logback.path=${logback.path}
+upload.path=${upload.path}
